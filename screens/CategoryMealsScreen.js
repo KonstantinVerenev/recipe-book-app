@@ -16,14 +16,24 @@ const CategoryMealsScreen = (props) => {
   );
 };
 
-CategoryMealsScreen.navigationOptions = {
-  headerTitle: 'Meal Screen',
-  headerTitleAlign: 'center',
-  headerStyle: {
-    backgroundColor: COLORS.mainColor
-  },
-  headerTintColor: 'white'
+CategoryMealsScreen.navigationOptions = (navigationData) => {
+  const catId = navigationData.navigation.getParam('categoryId');
+
+  const selectedCategory = CATEGORIES.find(category => category.id === catId);
+
+  return {
+    headerTitle: selectedCategory.title,
+  };
 };
+
+// CategoryMealsScreen.navigationOptions = {
+//   headerTitle: 'Meal Screen',
+//   headerTitleAlign: 'center',
+//   headerStyle: {
+//     backgroundColor: COLORS.mainColor
+//   },
+//   headerTintColor: 'white'
+// };
 
 const styles = StyleSheet.create({
   screen: {

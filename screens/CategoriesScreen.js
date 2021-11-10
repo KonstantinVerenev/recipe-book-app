@@ -27,12 +27,7 @@ const CaregoriesScreen = (props) => {
 };
 
 CaregoriesScreen.navigationOptions = {
-  headerTitle: 'Meals Categories',
-  headerTitleAlign: 'center',
-  headerStyle: {
-    backgroundColor: COLORS.mainColor
-  },
-  headerTintColor: 'white'
+  headerTitle: 'Meals Categories'
 };
 
 const styles = StyleSheet.create({
