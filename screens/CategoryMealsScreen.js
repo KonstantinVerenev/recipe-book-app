@@ -1,17 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import COLORS from '../constants/COLORS';
-import { CATEGORIES } from '../data/data';
+import { View, StyleSheet, FlatList } from 'react-native';
+import MealItem from '../components/MealItem';
+import { CATEGORIES, MEALS } from '../data/data';
 
 const CategoryMealsScreen = (props) => {
   const catId = props.navigation.getParam('categoryId');
 
-  const selectedCategory = CATEGORIES.find(category => category.id === catId);
+  const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(catId) !== -1);
+
+  const renderItem = ({ item }) => {
+    return <MealItem
+      title={item.title}
+      image={item.imageUrl}
+      duration={item.duration}
+      complexity={item.complexity}
+      affordability={item.affordability}
+      onSelect={() => {
+        props.navigation.navigate('MealDetail', { mealId: item.id });
+      }}
+    />;
+  };
 
   return (
     <View style={styles.screen}>
-      <Text>{selectedCategory.title}</Text>
-      <Button title={'Go to one concrete Meal!'} onPress={() => { props.navigation.navigate('MealDetail'); }} />
+      <FlatList data={displayedMeals} renderItem={renderItem} style={styles.mealsList} />
     </View>
   );
 };
@@ -39,7 +51,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 10
+  },
+  mealsList: {
+    width: '100%'
   }
 });
 
